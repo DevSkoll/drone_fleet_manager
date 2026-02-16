@@ -1,43 +1,20 @@
 /**
  * Fleet view - displays all drones in list/grid format
- * Future: map integration
+ * Uses FleetContext for real-time updates
  */
-import React, { useEffect, useState } from 'react';
-import { droneAPI } from '../../services/api';
+import React, { useState, useMemo } from 'react';
+import { useFleet } from '../../contexts/FleetContext';
 
 function FleetView() {
-  const [drones, setDrones] = useState([]);
-  const [filteredDrones, setFilteredDrones] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const { drones, isConnected, useFallback } = useFleet();
   const [searchTerm, setSearchTerm] = useState('');
   const [statusFilter, setStatusFilter] = useState('ALL');
 
-  useEffect(() => {
-    fetchDrones();
-    const interval = setInterval(fetchDrones, 30000);
-    return () => clearInterval(interval);
-  }, []);
-
-  useEffect(() => {
-    filterDrones();
-  }, [drones, searchTerm, statusFilter]);
-
-  const fetchDrones = async () => {
-    try {
-      const response = await droneAPI.getAll();
-      setDrones(response.data);
-    } catch (error) {
-      console.error('Failed to fetch drones:', error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const filterDrones = () => {
+  const filteredDrones = useMemo(() => {
     let filtered = drones;
 
     if (searchTerm) {
-      filtered = filtered.filter(drone => 
+      filtered = filtered.filter(drone =>
         drone.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
         drone.model?.toLowerCase().includes(searchTerm.toLowerCase()) ||
         drone.serialNumber?.toLowerCase().includes(searchTerm.toLowerCase())
@@ -48,8 +25,8 @@ function FleetView() {
       filtered = filtered.filter(drone => drone.status === statusFilter);
     }
 
-    setFilteredDrones(filtered);
-  };
+    return filtered;
+  }, [drones, searchTerm, statusFilter]);
 
   const getBatteryColor = (level) => {
     if (level >= 70) return 'var(--color-success)';
@@ -57,25 +34,16 @@ function FleetView() {
     return 'var(--color-danger)';
   };
 
-  if (loading) {
-    return (
-      <div className="fleet-view">
-        <div className="page-header">
-          <div className="skeleton skeleton-title"></div>
-        </div>
-        <div className="table-container">
-          <div className="skeleton skeleton-table"></div>
-        </div>
-      </div>
-    );
-  }
-
   return (
     <div className="fleet-view">
       <div className="page-header">
         <div>
           <h1 className="page-title">Fleet Management</h1>
-          <p className="page-subtitle">{filteredDrones.length} drone{filteredDrones.length !== 1 ? 's' : ''} in fleet</p>
+          <p className="page-subtitle">
+            {filteredDrones.length} drone{filteredDrones.length !== 1 ? 's' : ''} in fleet
+            {isConnected && <span className="connection-badge connected"> Live</span>}
+            {!isConnected && useFallback && <span className="connection-badge polling"> Polling</span>}
+          </p>
         </div>
       </div>
 
@@ -90,7 +58,7 @@ function FleetView() {
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
-            <select 
+            <select
               className="filter-select"
               value={statusFilter}
               onChange={(e) => setStatusFilter(e.target.value)}
@@ -143,9 +111,9 @@ function FleetView() {
                     {drone.batteryLevel !== null && drone.batteryLevel !== undefined ? (
                       <div className="battery-cell">
                         <div className="battery-bar">
-                          <div 
-                            className="battery-fill" 
-                            style={{ 
+                          <div
+                            className="battery-fill"
+                            style={{
                               width: `${drone.batteryLevel}%`,
                               background: getBatteryColor(drone.batteryLevel)
                             }}

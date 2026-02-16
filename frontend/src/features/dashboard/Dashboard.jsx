@@ -1,80 +1,23 @@
 /**
- * Main dashboard view - modular widget-based layout
+ * Main dashboard view - real-time fleet monitoring
+ * Uses FleetContext for WebSocket-powered updates
  */
-import React, { useEffect, useState } from 'react';
-import { droneAPI } from '../../services/api';
+import React from 'react';
+import { useFleet } from '../../contexts/FleetContext';
 import DroneMap from '../../components/DroneMap';
 
 function Dashboard() {
-  const [drones, setDrones] = useState([]);
-  const [stats, setStats] = useState({ 
-    total: 0, 
-    active: 0, 
-    offline: 0, 
-    maintenance: 0,
-    avgBattery: 0 
-  });
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    fetchDrones();
-    const interval = setInterval(fetchDrones, 30000); // Refresh every 30s
-    return () => clearInterval(interval);
-  }, []);
-
-  const fetchDrones = async () => {
-    try {
-      const response = await droneAPI.getAll();
-      const droneData = response.data;
-      setDrones(droneData);
-      
-      const active = droneData.filter(d => d.status === 'ACTIVE').length;
-      const offline = droneData.filter(d => d.status === 'OFFLINE').length;
-      const maintenance = droneData.filter(d => d.status === 'MAINTENANCE').length;
-      
-      const dronesWithBattery = droneData.filter(d => d.batteryLevel !== null && d.batteryLevel !== undefined);
-      const avgBattery = dronesWithBattery.length > 0
-        ? dronesWithBattery.reduce((sum, d) => sum + d.batteryLevel, 0) / dronesWithBattery.length
-        : 0;
-      
-      setStats({ 
-        total: droneData.length, 
-        active, 
-        offline, 
-        maintenance,
-        avgBattery: Math.round(avgBattery)
-      });
-      setLoading(false);
-    } catch (error) {
-      console.error('Failed to fetch drones:', error);
-      setLoading(false);
-    }
-  };
-
-  if (loading) {
-    return (
-      <div className="dashboard">
-        <div className="page-header">
-          <div className="skeleton skeleton-title"></div>
-          <div className="skeleton skeleton-text"></div>
-        </div>
-        <div className="stats-grid">
-          {[1, 2, 3, 4].map(i => (
-            <div key={i} className="stat-card skeleton-card">
-              <div className="skeleton skeleton-text"></div>
-              <div className="skeleton skeleton-value"></div>
-            </div>
-          ))}
-        </div>
-      </div>
-    );
-  }
+  const { drones, stats, isConnected, useFallback } = useFleet();
 
   return (
     <div className="dashboard">
       <div className="page-header">
         <h1 className="page-title">Dashboard</h1>
-        <p className="page-subtitle">Real-time fleet monitoring and analytics</p>
+        <p className="page-subtitle">
+          Real-time fleet monitoring and analytics
+          {isConnected && <span className="connection-badge connected"> Live</span>}
+          {!isConnected && useFallback && <span className="connection-badge polling"> Polling</span>}
+        </p>
       </div>
 
       <div className="stats-grid">
