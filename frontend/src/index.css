@@ -1,3 +1,51 @@
+:root {
+  /* Brand Colors */
+  --color-primary: #71C9CE;
+  --color-primary-light: #A6E3E9;
+  --color-primary-lighter: #CBF1F5;
+  --color-primary-lightest: #E3FDFD;
+  
+  /* Neutrals */
+  --color-dark: #0A1F2E;
+  --color-dark-light: #152B3D;
+  --color-dark-lighter: #1F3A4F;
+  --color-text: #E8F4F8;
+  --color-text-muted: #A6C8D8;
+  --color-text-subtle: #6B8A9C;
+  
+  /* Semantic Colors */
+  --color-success: #4ECDC4;
+  --color-warning: #FFE66D;
+  --color-danger: #FF6B6B;
+  --color-info: #71C9CE;
+  
+  /* Shadows & Effects */
+  --shadow-sm: 0 1px 3px rgba(113, 201, 206, 0.12);
+  --shadow-md: 0 4px 6px rgba(113, 201, 206, 0.15), 0 1px 3px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 10px 25px rgba(113, 201, 206, 0.2), 0 6px 10px rgba(0, 0, 0, 0.1);
+  --shadow-glow: 0 0 20px rgba(113, 201, 206, 0.3);
+  
+  /* Spacing */
+  --space-xs: 0.25rem;
+  --space-sm: 0.5rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2rem;
+  --space-2xl: 3rem;
+  
+  /* Border Radius */
+  --radius-sm: 0.375rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+  --radius-full: 9999px;
+  
+  /* Transitions */
+  --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-base: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 350ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -5,12 +53,34 @@
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
-  background: #0f1419;
-  color: #e1e8ed;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  background: linear-gradient(135deg, var(--color-dark) 0%, #0D2535 100%);
+  color: var(--color-text);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 #root {
   width: 100%;
   min-height: 100vh;
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-dark-light);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-primary);
+  border-radius: var(--radius-full);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-primary-light);
 }

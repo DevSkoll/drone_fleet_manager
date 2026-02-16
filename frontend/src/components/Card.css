@@ -1,0 +1,28 @@
+.card {
+  background: var(--color-dark-light);
+  border: 1px solid rgba(113, 201, 206, 0.15);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  transition: all var(--transition-base);
+}
+
+.card-hover:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--color-primary);
+}
+
+.card-header {
+  padding: var(--space-lg) var(--space-xl);
+  border-bottom: 1px solid rgba(113, 201, 206, 0.1);
+}
+
+.card-body {
+  padding: var(--space-xl);
+}
+
+.card-footer {
+  padding: var(--space-lg) var(--space-xl);
+  border-top: 1px solid rgba(113, 201, 206, 0.1);
+  background: rgba(113, 201, 206, 0.02);
+}
