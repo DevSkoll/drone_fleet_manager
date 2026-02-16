@@ -1,192 +1,108 @@
-# Drone Management Platform
+# VTOL-DB
 
-Modular platform for managing drone fleets with support for telemetry, logs, sensor data, and future ROS2/MAVLINK integration. Built with Spring Boot backend and React frontend, both containerized for scalable deployment.
+**Drone Fleet Management Platform**
 
-## Architecture
+Real-time drone fleet management with WebSocket telemetry, interactive map visualization, and comprehensive settings. Built with Spring Boot 3.2 and React 18.
 
-### Backend (Spring Boot)
-- **Modular service architecture**: Separate services for drones, telemetry, logs, and sensors
-- **Abstracted storage layer**: Supports flatfile (JSON) and PostgreSQL backends
-- **RESTful API**: Clean API contracts with DTOs
-- **Repository pattern**: Pluggable storage implementations
+## Features
 
-### Frontend (React + Vite)
-- **Feature-based structure**: Dashboard, Fleet, Telemetry, Logs, Sensor modules
-- **Responsive design**: Dark-themed UI optimized for data visualization
-- **API client abstraction**: Centralized backend communication
-- **Map-ready**: Leaflet integration prepared for geospatial display
-
-### Infrastructure
-- **Docker containerization**: Backend, frontend, and optional PostgreSQL
-- **Docker Compose orchestration**: Simple multi-service management
-- **Volume mounts**: Persistent data storage
-- **Network isolation**: Services communicate via dedicated bridge network
+- **Real-time Dashboard** - Live fleet status with WebSocket updates
+- **Interactive Map** - Color-coded drone markers with Leaflet
+- **Fleet Management** - Register, monitor, and command drones
+- **Telemetry Streaming** - Position, battery, and status updates
+- **Worker Authentication** - Secure drone-to-server communication
+- **Flexible Storage** - Flatfile (JSON) or PostgreSQL backends
+- **Comprehensive Settings** - Database, backup, security, WebSocket configuration
 
 ## Quick Start
 
-### Prerequisites
-- Docker and Docker Compose installed
-- Ports 3000 and 8080 available
-
-### Running the Application
-
 ```bash
-# Start with flatfile storage (default)
-docker compose up --build
+# Clone repository
+git clone https://github.com/DevSkoll/drone_fleet_manager.git
+cd drone_fleet_manager
 
-# Start with PostgreSQL storage
-docker compose --profile postgres up --build
+# Start services
+docker compose -f docker-compose.dev.yml up -d
+
+# Verify
+curl http://localhost:8080/api/drones
 ```
 
 **Access:**
-- Frontend: http://localhost:3000
-- Backend API: http://localhost:8080/api/drones
+- Dashboard: http://localhost:3000
+- API: http://localhost:8080/api/drones
 
-### Stopping Services
-```bash
-docker compose down
+See [Quick Start Guide](docs/QUICK_START.md) for detailed setup instructions.
 
-# Remove volumes (data)
-docker compose down -v
-```
+## Documentation
+
+| Document | Description |
+|----------|-------------|
+| [Quick Start](docs/QUICK_START.md) | Get running in 5 minutes |
+| [Architecture](docs/ARCHITECTURE.md) | System design and data flows |
+| [API Reference](docs/API_REFERENCE.md) | REST and WebSocket API docs |
+| [Configuration](docs/CONFIGURATION.md) | All configuration options |
+| [Deployment](docs/DEPLOYMENT.md) | Production deployment guide |
+| [Development](docs/DEVELOPMENT.md) | Local setup and contributing |
+| [Examples](docs/EXAMPLES.md) | Python, JavaScript, and curl examples |
+| [Fleet Worker Spec](docs/FLEET_WORKER_ARCHITECTURE.md) | Worker agent protocol |
+
+## Technology Stack
+
+| Layer | Technology |
+|-------|------------|
+| Backend | Spring Boot 3.2, Java 21, WebSocket |
+| Frontend | React 18, Vite 5, Leaflet |
+| Storage | Flatfile (JSON) / PostgreSQL |
+| Infrastructure | Docker, Docker Compose |
 
 ## Project Structure
 
 ```
 VTOL-DB/
-├── backend/
-│   ├── src/main/java/com/vtoldb/
-│   │   ├── config/          # Configuration classes
-│   │   ├── controller/      # REST controllers
-│   │   ├── dto/             # Data Transfer Objects
-│   │   ├── model/           # Entity models
-│   │   ├── repository/      # Data access interfaces
-│   │   ├── service/         # Business logic
-│   │   └── storage/         # Storage implementations
-│   ├── src/main/resources/
-│   │   └── application.yml  # Spring Boot config
-│   ├── Dockerfile
-│   └── pom.xml
-├── frontend/
-│   ├── src/
-│   │   ├── features/        # Feature modules
-│   │   │   ├── dashboard/   # Dashboard view
-│   │   │   ├── fleet/       # Fleet management
-│   │   │   ├── telemetry/   # Telemetry display
-│   │   │   ├── logs/        # Log viewer
-│   │   │   └── sensor/      # Sensor data
-│   │   ├── services/        # API client
-│   │   ├── components/      # Shared components
-│   │   └── App.jsx
-│   ├── Dockerfile
-│   ├── package.json
-│   └── vite.config.js
-├── config/
-│   ├── .env.template
-│   └── README.md
-├── data/                    # Flatfile storage (gitignored)
-├── docker-compose.yml
-└── README.md
+├── backend/                 # Spring Boot application
+│   ├── src/main/java/      # Java source (controllers, services, models)
+│   └── src/main/resources/ # Configuration
+├── frontend/                # React application
+│   ├── src/features/       # Feature modules (dashboard, fleet, settings)
+│   └── src/services/       # API client
+├── docs/                    # Documentation
+├── data/                    # Data storage (gitignored)
+└── docker-compose.yml       # Container orchestration
 ```
 
-## API Endpoints
+## API Overview
 
-### Drone Management
-- `GET /api/drones` - List all drones
-- `GET /api/drones/{id}` - Get drone by ID
-- `POST /api/drones` - Create new drone
-- `PUT /api/drones/{id}` - Update drone
-- `DELETE /api/drones/{id}` - Delete drone
-
-### Example Request
-```json
-POST /api/drones
-{
-  "name": "Drone Alpha",
-  "model": "VTOL-X1",
-  "serialNumber": "VTX-2024-001",
-  "status": "ACTIVE",
-  "latitude": 37.7749,
-  "longitude": -122.4194,
-  "altitude": 100.5,
-  "batteryLevel": 85.0
-}
-```
-
-## Configuration
-
-### Storage Backend
-
-**Flatfile (Default)**
-- Data stored in `./data/drones.json`
-- Suitable for development and small deployments
-- No external dependencies
-
-**PostgreSQL**
-1. Enable in `docker-compose.yml` using `--profile postgres`
-2. Update `backend/src/main/resources/application.yml`:
-   ```yaml
-   storage:
-     type: postgresql
-   ```
-3. Configure database connection in environment variables
-
-### Environment Variables
-See `config/.env.template` for configuration options.
-
-## Development
-
-### Local Backend Development
 ```bash
-cd backend
-./mvnw spring-boot:run
+# List drones
+curl http://localhost:8080/api/drones
+
+# Create drone
+curl -X POST http://localhost:8080/api/drones \
+  -H "Content-Type: application/json" \
+  -d '{"name":"Drone-001","serialNumber":"SN-001"}'
+
+# WebSocket endpoints
+ws://localhost:8080/ws/fleet      # Fleet workers
+ws://localhost:8080/ws/dashboard  # Dashboard clients
 ```
 
-### Local Frontend Development
-```bash
-cd frontend
-npm install
-npm run dev
-```
+See [API Reference](docs/API_REFERENCE.md) for complete documentation.
 
-## Future Expansion
+## Contributing
 
-### Planned Features
-- **Command Service**: ROS2/MAVLINK protocol integration
-- **WebSocket Support**: Real-time telemetry streaming
-- **Map Integration**: Interactive drone visualization with Leaflet
-- **Log Analysis**: Search, filter, and analysis tools
-- **Sensor Data Management**: Image gallery and data downloads
-- **Authentication**: User management and access control
-- **Mission Planning**: Waypoint and flight path management
+1. Fork the repository
+2. Create a feature branch
+3. Make changes with tests
+4. Submit a pull request
 
-### Modularity
-The platform is designed for easy expansion:
-- Add new feature modules in `frontend/src/features/`
-- Add new service modules in `backend/src/main/java/com/vtoldb/service/`
-- Implement new storage backends via `DroneRepository` interface
+See [Development Guide](docs/DEVELOPMENT.md) for setup and guidelines.
 
-## Technology Stack
+## License
 
-**Backend**
-- Spring Boot 3.2.0
-- Java 17
-- Jackson (JSON processing)
-- Maven
-
-**Frontend**
-- React 18
-- Vite 5
-- React Router 6
-- Axios
-- Leaflet (maps)
-
-**Infrastructure**
-- Docker
-- Docker Compose
-- PostgreSQL 16 (optional)
+MIT License
 
 ---
 
-**Bryce at JCU//JEDI**  
+**Bryce at JCU//JEDI**
 arctek.us

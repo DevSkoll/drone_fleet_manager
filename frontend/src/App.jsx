@@ -10,6 +10,7 @@ import FleetView from './features/fleet/FleetView';
 import TelemetryView from './features/telemetry/TelemetryView';
 import LogsView from './features/logs/LogsView';
 import SensorView from './features/sensor/SensorView';
+import SettingsView from './features/settings/SettingsView';
 import './App.css';
 
 function App() {
@@ -56,6 +57,12 @@ function App() {
                   <span>Sensor Data</span>
                 </NavLink>
               </li>
+              <li className="nav-item">
+                <NavLink to="/settings" className={({ isActive }) => isActive ? 'nav-link active' : 'nav-link'}>
+                  <span className="nav-icon">⚙️</span>
+                  <span>Settings</span>
+                </NavLink>
+              </li>
             </ul>
           </nav>
         </aside>
@@ -69,6 +76,7 @@ function App() {
               <Route path="/telemetry" element={<TelemetryView />} />
               <Route path="/logs" element={<LogsView />} />
               <Route path="/sensor" element={<SensorView />} />
+              <Route path="/settings" element={<SettingsView />} />
             </Routes>
           </main>
         </div>

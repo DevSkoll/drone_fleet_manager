@@ -23,4 +23,12 @@ export const droneAPI = {
   delete: (id) => apiClient.delete(`/drones/${id}`),
 };
 
+// Settings API endpoints
+export const settingsAPI = {
+  get: () => apiClient.get('/settings'),
+  update: (settings) => apiClient.put('/settings', settings),
+  reset: () => apiClient.post('/settings/reset'),
+  generateAuthKey: () => apiClient.post('/settings/generate-auth-key'),
+};
+
 export default apiClient;
