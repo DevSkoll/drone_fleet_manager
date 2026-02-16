@@ -1,0 +1,22 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: vtol-db-backend
+
+storage:
+  type: flatfile
+  flatfile:
+    path: ./data/drones.json
+  postgresql:
+    enabled: false
+    host: postgres
+    port: 5432
+    database: vtoldb
+    username: vtoluser
+    password: vtolpass
+
+logging:
+  level:
+    com.vtoldb: INFO

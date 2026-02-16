@@ -1,0 +1,117 @@
+.app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.nav-bar {
+  background: #1a1f2e;
+  padding: 1rem 2rem;
+  border-bottom: 2px solid #2a3f5f;
+}
+
+.nav-bar h1 {
+  margin-bottom: 1rem;
+  color: #3ea6ff;
+}
+
+.nav-bar ul {
+  display: flex;
+  gap: 2rem;
+  list-style: none;
+}
+
+.nav-bar a {
+  color: #e1e8ed;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+.nav-bar a:hover {
+  color: #3ea6ff;
+}
+
+.main-content {
+  flex: 1;
+  padding: 2rem;
+}
+
+.dashboard, .fleet-view, .telemetry-view, .logs-view, .sensor-view {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.stat-card {
+  background: #1a1f2e;
+  padding: 1.5rem;
+  border-radius: 8px;
+  border: 1px solid #2a3f5f;
+}
+
+.stat-card h3 {
+  font-size: 0.9rem;
+  color: #8899a6;
+  margin-bottom: 0.5rem;
+}
+
+.stat-value {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #3ea6ff;
+}
+
+.drone-list {
+  margin-top: 2rem;
+}
+
+table {
+  width: 100%;
+  background: #1a1f2e;
+  border-collapse: collapse;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+th, td {
+  padding: 1rem;
+  text-align: left;
+  border-bottom: 1px solid #2a3f5f;
+}
+
+th {
+  background: #141821;
+  color: #8899a6;
+  font-weight: 600;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+}
+
+.status-badge {
+  padding: 0.25rem 0.75rem;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.status-active {
+  background: #1da1f2;
+  color: white;
+}
+
+.status-offline {
+  background: #657786;
+  color: white;
+}
+
+.status-maintenance {
+  background: #ffad1f;
+  color: #0f1419;
+}
