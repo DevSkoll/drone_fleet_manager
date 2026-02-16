@@ -4,7 +4,7 @@
  */
 package com.vtoldb.dto;
 
-import com.vtoldb.model.Drone.DroneStatus;
+import com.vtoldb.model.DroneStatus;
 
 public class DroneDTO {
     private String id;

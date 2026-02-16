@@ -22,6 +22,15 @@ storage:
     username: vtoluser
     password: vtolpass
 
+websocket:
+  fleet:
+    endpoint: /ws/fleet
+    heartbeat-interval: 15000
+    idle-timeout: 60000
+    health-check-interval: 10000
+  dashboard:
+    endpoint: /ws/dashboard
+
 logging:
   level:
     com.vtoldb: INFO

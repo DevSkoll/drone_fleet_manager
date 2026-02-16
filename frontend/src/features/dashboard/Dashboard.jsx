@@ -3,6 +3,7 @@
  */
 import React, { useEffect, useState } from 'react';
 import { droneAPI } from '../../services/api';
+import DroneMap from '../../components/DroneMap';
 
 function Dashboard() {
   const [drones, setDrones] = useState([]);
@@ -132,6 +133,16 @@ function Dashboard() {
           <span>{stats.maintenance} drone{stats.maintenance > 1 ? 's' : ''} in maintenance mode</span>
         </div>
       )}
+
+      <div className="map-section">
+        <div className="section-header">
+          <h2 className="section-title">Fleet Location</h2>
+          <p className="section-subtitle">
+            {drones.filter(d => d.latitude && d.longitude).length} drone{drones.filter(d => d.latitude && d.longitude).length !== 1 ? 's' : ''} with location data
+          </p>
+        </div>
+        <DroneMap drones={drones} />
+      </div>
     </div>
   );
 }

@@ -6,6 +6,7 @@ package com.vtoldb.service;
 
 import com.vtoldb.dto.DroneDTO;
 import com.vtoldb.model.Drone;
+import com.vtoldb.model.DroneStatus;
 import com.vtoldb.repository.DroneRepository;
 import org.springframework.stereotype.Service;
 
@@ -46,7 +47,7 @@ public class DroneService {
         drone.setName(dto.getName());
         drone.setModel(dto.getModel());
         drone.setSerialNumber(dto.getSerialNumber());
-        drone.setStatus(dto.getStatus() != null ? dto.getStatus() : Drone.DroneStatus.OFFLINE);
+        drone.setStatus(dto.getStatus() != null ? dto.getStatus() : DroneStatus.OFFLINE);
         drone.setLastSeen(dto.getLastSeen() != null ? 
             LocalDateTime.parse(dto.getLastSeen(), dateFormatter) : LocalDateTime.now());
         drone.setLatitude(dto.getLatitude());
@@ -90,5 +91,20 @@ public class DroneService {
         }
         droneRepository.deleteById(id);
         return true;
+    }
+
+    // Create drone from entity (for WebSocket registration)
+    public DroneDTO createDrone(Drone drone) {
+        Drone saved = droneRepository.save(drone);
+        return toDTO(saved);
+    }
+
+    // Update drone status (for WebSocket handlers)
+    public void updateDroneStatus(String droneId, DroneStatus status) {
+        droneRepository.findById(droneId).ifPresent(drone -> {
+            drone.setStatus(status);
+            drone.setLastSeen(LocalDateTime.now());
+            droneRepository.save(drone);
+        });
     }
 }

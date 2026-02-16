@@ -4,6 +4,7 @@
  */
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, NavLink } from 'react-router-dom';
+import { FleetProvider } from './contexts/FleetContext';
 import Dashboard from './features/dashboard/Dashboard';
 import FleetView from './features/fleet/FleetView';
 import TelemetryView from './features/telemetry/TelemetryView';
@@ -13,6 +14,7 @@ import './App.css';
 
 function App() {
   return (
+    <FleetProvider>
     <Router>
       <div className="app">
         {/* Sidebar Navigation */}
@@ -72,6 +74,7 @@ function App() {
         </div>
       </div>
     </Router>
+    </FleetProvider>
   );
 }
 

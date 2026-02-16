@@ -527,3 +527,24 @@ td {
   width: 100%;
   border-radius: var(--radius-xl);
 }
+
+/* Map Section */
+.map-section {
+  margin-top: var(--space-2xl);
+}
+
+.section-header {
+  margin-bottom: var(--space-lg);
+}
+
+.section-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--color-text);
+  margin-bottom: var(--space-xs);
+}
+
+.section-subtitle {
+  color: var(--color-text-muted);
+  font-size: 0.875rem;
+}

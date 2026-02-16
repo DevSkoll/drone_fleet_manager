@@ -19,10 +19,6 @@ public class Drone {
     private Double altitude;
     private Double batteryLevel;
 
-    public enum DroneStatus {
-        ACTIVE, INACTIVE, MAINTENANCE, OFFLINE
-    }
-
     // Constructors
     public Drone() {
         this.status = DroneStatus.OFFLINE;
