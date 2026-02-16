@@ -3,6 +3,7 @@
  */
 import React from 'react';
 import Card from '../../../components/Card';
+import TagListEditor from '../../../components/TagListEditor';
 
 function FleetSection({ settings, onChange }) {
   const handleChange = (field, value) => {
@@ -74,6 +75,53 @@ function FleetSection({ settings, onChange }) {
           <span className="form-hint">
             Maximum number of fleet workers that can connect simultaneously (1-1,000)
           </span>
+        </div>
+
+        <div className="subsection">
+          <h4 className="subsection-title">Drone Configuration Options</h4>
+          <p className="form-hint" style={{ marginBottom: 'var(--space-md)' }}>
+            Configure the available options for drone properties. These will appear as dropdown choices when adding or editing drones.
+          </p>
+
+          <div className="form-group">
+            <TagListEditor
+              label="Available Roles"
+              items={settings.availableRoles || []}
+              onChange={(items) => handleChange('availableRoles', items)}
+              placeholder="Add role..."
+            />
+            <span className="form-hint">Fleet roles for drones (e.g., Controller, Worker, Relay)</span>
+          </div>
+
+          <div className="form-group">
+            <TagListEditor
+              label="Available Connection Types"
+              items={settings.availableConnectionTypes || []}
+              onChange={(items) => handleChange('availableConnectionTypes', items)}
+              placeholder="Add connection type..."
+            />
+            <span className="form-hint">Network connection types (e.g., Starlink, Cellular, WiFi)</span>
+          </div>
+
+          <div className="form-group">
+            <TagListEditor
+              label="Available Capabilities"
+              items={settings.availableCapabilities || []}
+              onChange={(items) => handleChange('availableCapabilities', items)}
+              placeholder="Add capability..."
+            />
+            <span className="form-hint">Drone capabilities (e.g., Video, Photo, Thermal, LiDAR)</span>
+          </div>
+
+          <div className="form-group">
+            <TagListEditor
+              label="Available Protocols"
+              items={settings.availableProtocols || []}
+              onChange={(items) => handleChange('availableProtocols', items)}
+              placeholder="Add protocol..."
+            />
+            <span className="form-hint">Communication protocols (e.g., TCP, UDP, MAVLINK, ROS2)</span>
+          </div>
         </div>
       </Card.Body>
     </Card>

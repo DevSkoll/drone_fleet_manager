@@ -1,0 +1,176 @@
+/* Drone Form Styles */
+.drone-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+}
+
+/* Form Groups */
+.drone-form .form-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.drone-form label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--color-text);
+}
+
+/* Form Inputs */
+.drone-form .form-input,
+.drone-form .form-select {
+  padding: var(--space-sm) var(--space-md);
+  background: var(--color-dark);
+  border: 1px solid rgba(113, 201, 206, 0.2);
+  border-radius: var(--radius-md);
+  color: var(--color-text);
+  font-size: 0.875rem;
+  transition: all var(--transition-fast);
+}
+
+.drone-form .form-input:focus,
+.drone-form .form-select:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(113, 201, 206, 0.1);
+}
+
+.drone-form .form-input::placeholder {
+  color: var(--color-text-muted);
+}
+
+.drone-form .form-input:disabled,
+.drone-form .form-select:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.drone-form .form-input.error,
+.drone-form .form-select.error {
+  border-color: var(--color-danger);
+}
+
+.drone-form .form-input.error:focus {
+  box-shadow: 0 0 0 3px rgba(255, 107, 107, 0.1);
+}
+
+/* Form Select */
+.drone-form .form-select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23A6C8D8' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right var(--space-md) center;
+  padding-right: calc(var(--space-md) * 2 + 12px);
+  cursor: pointer;
+}
+
+/* Form Rows */
+.drone-form .form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-md);
+}
+
+.drone-form .form-row-thirds {
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+/* Small form group for port, etc */
+.drone-form .form-group-small {
+  max-width: 120px;
+}
+
+/* Checkbox Group */
+.drone-form .checkbox-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+  padding: var(--space-sm);
+  background: var(--color-dark);
+  border: 1px solid rgba(113, 201, 206, 0.2);
+  border-radius: var(--radius-md);
+}
+
+.drone-form .checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  padding: var(--space-xs) var(--space-sm);
+  background: rgba(113, 201, 206, 0.05);
+  border: 1px solid rgba(113, 201, 206, 0.15);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  font-size: 0.8125rem;
+  font-weight: normal;
+  transition: all var(--transition-fast);
+}
+
+.drone-form .checkbox-label:hover {
+  background: rgba(113, 201, 206, 0.1);
+  border-color: rgba(113, 201, 206, 0.3);
+}
+
+.drone-form .checkbox-label input[type="checkbox"] {
+  width: 14px;
+  height: 14px;
+  accent-color: var(--color-primary);
+  cursor: pointer;
+}
+
+.drone-form .checkbox-label input[type="checkbox"]:checked + span {
+  color: var(--color-primary);
+}
+
+/* Form hint */
+.drone-form .form-hint {
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+}
+
+/* Form Section Title */
+.drone-form .form-section-title {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-top: var(--space-sm);
+  padding-bottom: var(--space-xs);
+  border-bottom: 1px solid rgba(113, 201, 206, 0.1);
+}
+
+/* Form Error */
+.drone-form .form-error {
+  font-size: 0.75rem;
+  color: var(--color-danger);
+}
+
+/* Error Banner */
+.drone-form .form-error-banner {
+  padding: var(--space-md);
+  background: rgba(255, 107, 107, 0.1);
+  border: 1px solid rgba(255, 107, 107, 0.3);
+  border-radius: var(--radius-md);
+  color: var(--color-danger);
+  font-size: 0.875rem;
+}
+
+/* Form Actions */
+.drone-form .form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--space-md);
+  margin-top: var(--space-md);
+  padding-top: var(--space-lg);
+  border-top: 1px solid rgba(113, 201, 206, 0.1);
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .drone-form .form-row,
+  .drone-form .form-row-thirds {
+    grid-template-columns: 1fr;
+  }
+}

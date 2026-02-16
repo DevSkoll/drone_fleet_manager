@@ -4,6 +4,8 @@
  */
 package com.vtoldb.dto;
 
+import java.util.List;
+
 public class SettingsDTO {
     private DatabaseSettingsDTO database;
     private BackupSettingsDTO backup;
@@ -92,6 +94,10 @@ public class SettingsDTO {
         private Long defaultTelemetryInterval;
         private Long offlineThreshold;
         private Integer maxConcurrentWorkers;
+        private List<String> availableRoles;
+        private List<String> availableConnectionTypes;
+        private List<String> availableCapabilities;
+        private List<String> availableProtocols;
 
         public Long getDefaultTelemetryInterval() { return defaultTelemetryInterval; }
         public void setDefaultTelemetryInterval(Long defaultTelemetryInterval) { this.defaultTelemetryInterval = defaultTelemetryInterval; }
@@ -99,6 +105,14 @@ public class SettingsDTO {
         public void setOfflineThreshold(Long offlineThreshold) { this.offlineThreshold = offlineThreshold; }
         public Integer getMaxConcurrentWorkers() { return maxConcurrentWorkers; }
         public void setMaxConcurrentWorkers(Integer maxConcurrentWorkers) { this.maxConcurrentWorkers = maxConcurrentWorkers; }
+        public List<String> getAvailableRoles() { return availableRoles; }
+        public void setAvailableRoles(List<String> availableRoles) { this.availableRoles = availableRoles; }
+        public List<String> getAvailableConnectionTypes() { return availableConnectionTypes; }
+        public void setAvailableConnectionTypes(List<String> availableConnectionTypes) { this.availableConnectionTypes = availableConnectionTypes; }
+        public List<String> getAvailableCapabilities() { return availableCapabilities; }
+        public void setAvailableCapabilities(List<String> availableCapabilities) { this.availableCapabilities = availableCapabilities; }
+        public List<String> getAvailableProtocols() { return availableProtocols; }
+        public void setAvailableProtocols(List<String> availableProtocols) { this.availableProtocols = availableProtocols; }
     }
 
     public DatabaseSettingsDTO getDatabase() { return database; }

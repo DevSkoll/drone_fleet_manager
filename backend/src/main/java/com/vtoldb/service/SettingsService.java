@@ -107,6 +107,10 @@ public class SettingsService {
         fleetDto.setDefaultTelemetryInterval(settings.getFleet().getDefaultTelemetryInterval());
         fleetDto.setOfflineThreshold(settings.getFleet().getOfflineThreshold());
         fleetDto.setMaxConcurrentWorkers(settings.getFleet().getMaxConcurrentWorkers());
+        fleetDto.setAvailableRoles(settings.getFleet().getAvailableRoles());
+        fleetDto.setAvailableConnectionTypes(settings.getFleet().getAvailableConnectionTypes());
+        fleetDto.setAvailableCapabilities(settings.getFleet().getAvailableCapabilities());
+        fleetDto.setAvailableProtocols(settings.getFleet().getAvailableProtocols());
         dto.setFleet(fleetDto);
 
         return dto;
@@ -201,6 +205,18 @@ public class SettingsService {
         if (source.getMaxConcurrentWorkers() != null) {
             validateRange(source.getMaxConcurrentWorkers(), 1, 1000, "maxConcurrentWorkers");
             target.setMaxConcurrentWorkers(source.getMaxConcurrentWorkers());
+        }
+        if (source.getAvailableRoles() != null) {
+            target.setAvailableRoles(source.getAvailableRoles());
+        }
+        if (source.getAvailableConnectionTypes() != null) {
+            target.setAvailableConnectionTypes(source.getAvailableConnectionTypes());
+        }
+        if (source.getAvailableCapabilities() != null) {
+            target.setAvailableCapabilities(source.getAvailableCapabilities());
+        }
+        if (source.getAvailableProtocols() != null) {
+            target.setAvailableProtocols(source.getAvailableProtocols());
         }
     }
 

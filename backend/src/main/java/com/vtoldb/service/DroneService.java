@@ -37,6 +37,14 @@ public class DroneService {
         dto.setLongitude(drone.getLongitude());
         dto.setAltitude(drone.getAltitude());
         dto.setBatteryLevel(drone.getBatteryLevel());
+        // Networking fields
+        dto.setIpAddress(drone.getIpAddress());
+        dto.setPort(drone.getPort());
+        dto.setRole(drone.getRole());
+        dto.setProtocol(drone.getProtocol());
+        dto.setConnectionType(drone.getConnectionType());
+        dto.setCapabilities(drone.getCapabilities());
+        dto.setRtspEndpoint(drone.getRtspEndpoint());
         return dto;
     }
 
@@ -48,12 +56,20 @@ public class DroneService {
         drone.setModel(dto.getModel());
         drone.setSerialNumber(dto.getSerialNumber());
         drone.setStatus(dto.getStatus() != null ? dto.getStatus() : DroneStatus.OFFLINE);
-        drone.setLastSeen(dto.getLastSeen() != null ? 
+        drone.setLastSeen(dto.getLastSeen() != null ?
             LocalDateTime.parse(dto.getLastSeen(), dateFormatter) : LocalDateTime.now());
         drone.setLatitude(dto.getLatitude());
         drone.setLongitude(dto.getLongitude());
         drone.setAltitude(dto.getAltitude());
         drone.setBatteryLevel(dto.getBatteryLevel());
+        // Networking fields
+        drone.setIpAddress(dto.getIpAddress());
+        drone.setPort(dto.getPort());
+        drone.setRole(dto.getRole());
+        drone.setProtocol(dto.getProtocol());
+        drone.setConnectionType(dto.getConnectionType());
+        drone.setCapabilities(dto.getCapabilities());
+        drone.setRtspEndpoint(dto.getRtspEndpoint());
         return drone;
     }
 

@@ -1,0 +1,36 @@
+/* Fleet View Specific Styles */
+
+/* Page Header - flex layout for title + button */
+.fleet-view .page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: var(--space-xl);
+}
+
+/* Actions Column */
+.actions-cell {
+  display: flex;
+  gap: var(--space-xs);
+}
+
+.actions-cell .btn {
+  padding: var(--space-xs) var(--space-sm);
+  font-size: 0.8125rem;
+}
+
+/* Delete Modal Error */
+.delete-error {
+  padding: var(--space-md);
+  background: rgba(255, 107, 107, 0.1);
+  border: 1px solid rgba(255, 107, 107, 0.3);
+  border-radius: var(--radius-md);
+  color: var(--color-danger);
+  font-size: 0.875rem;
+  margin-bottom: var(--space-md);
+}
+
+/* Empty State Button */
+.empty-state .btn {
+  margin-top: var(--space-md);
+}
